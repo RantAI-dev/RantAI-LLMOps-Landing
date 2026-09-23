@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 import { Badge } from "@/components/ui/badge"
@@ -23,13 +24,18 @@ export function HomeFooter() {
       <div className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2.5">
-              <span
-                className="flex size-7 items-center justify-center rounded-md bg-[var(--brand-2)] text-[11px] font-bold tracking-tight text-white"
-                aria-hidden
-              >
-                R
-              </span>
+            <Link
+              href="/"
+              className="flex w-fit items-center gap-2.5"
+              aria-label={`${brand.productName} home`}
+            >
+              <Image
+                src="/logo/rantai-mark.svg"
+                alt=""
+                width={130}
+                height={100}
+                className="h-[22px] w-auto"
+              />
               <span className="text-[15px] font-semibold tracking-tight">
                 RantAI <span className="text-primary">LLMOps</span>
               </span>

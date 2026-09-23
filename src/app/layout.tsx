@@ -36,6 +36,13 @@ export const metadata: Metadata = {
     title: `${brand.productName} — Self-hosted LLM fine-tuning and serving`,
     description: brand.tagline,
   },
+  icons: {
+    icon: [
+      { url: "/logo/rantai-mark.svg", type: "image/svg+xml" },
+      { url: "/logo.png", type: "image/png" },
+    ],
+    apple: "/logo.png",
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
