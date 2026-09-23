@@ -1,9 +1,6 @@
 "use client"
 
 import { Accordion } from "radix-ui"
-import { ChevronDown } from "lucide-react"
-
-import { Reveal } from "./reveal"
 
 const FAQS = [
   {
@@ -36,45 +33,54 @@ export function HomeFaq() {
   return (
     <section
       id="faq"
-      className="relative scroll-mt-20 border-y border-border bg-[var(--sidebar)]"
+      className="scroll-mt-20 border-y border-border bg-[var(--sidebar)]"
       aria-labelledby="faq-heading"
     >
-      <div className="mx-auto w-full max-w-3xl px-5 py-20 sm:px-8 sm:py-28">
-        <Reveal className="text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-            FAQ
-          </p>
-          <h2
-            id="faq-heading"
-            className="mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl"
-          >
-            Questions teams ask first
-          </h2>
-        </Reveal>
-
-        <Reveal delay={0.08} className="mt-12">
-          <Accordion.Root type="single" collapsible className="space-y-3">
-            {FAQS.map((faq, i) => (
-              <Accordion.Item
-                key={faq.q}
-                value={`item-${i}`}
-                className="overflow-hidden rounded-xl border border-border bg-card"
+      <div className="mx-auto w-full max-w-[1200px] px-5 py-[120px] sm:px-8 sm:py-[140px]">
+        <div className="flex flex-wrap gap-x-[72px] gap-y-10">
+          <div className="min-w-0 shrink grow basis-[300px]">
+            <div className="lg:sticky lg:top-[110px]">
+              <p className="font-mono text-[12px] text-primary">FAQ</p>
+              <h2
+                id="faq-heading"
+                className="mt-3 text-balance text-[clamp(32px,4vw,48px)] font-semibold leading-[1.05] tracking-[-0.03em]"
               >
-                <Accordion.Header>
-                  <Accordion.Trigger className="group flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-[15px] font-medium tracking-tight outline-none transition-colors hover:bg-accent/50 focus-visible:ring-[3px] focus-visible:ring-ring/50">
-                    {faq.q}
-                    <ChevronDown className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                  </Accordion.Trigger>
-                </Accordion.Header>
-                <Accordion.Content className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
-                  <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">
-                    {faq.a}
-                  </p>
-                </Accordion.Content>
-              </Accordion.Item>
-            ))}
-          </Accordion.Root>
-        </Reveal>
+                Questions teams ask first
+              </h2>
+            </div>
+          </div>
+
+          <div className="min-w-0 shrink grow-[1.8] basis-[520px]">
+            <Accordion.Root
+              type="single"
+              collapsible
+              defaultValue="item-0"
+              className="border-t border-border"
+            >
+              {FAQS.map((faq, i) => (
+                <Accordion.Item key={faq.q} value={`item-${i}`} className="border-b border-border">
+                  <Accordion.Header>
+                    <Accordion.Trigger className="group flex w-full items-start justify-between gap-6 py-[22px] text-left outline-none focus-visible:text-primary">
+                      <span className="text-[17px] font-medium tracking-[-0.01em]">{faq.q}</span>
+                      <span
+                        className="mt-1 shrink-0 font-mono text-[15px] text-muted-foreground"
+                        aria-hidden
+                      >
+                        <span className="group-data-[state=open]:hidden">+</span>
+                        <span className="hidden group-data-[state=open]:inline">−</span>
+                      </span>
+                    </Accordion.Trigger>
+                  </Accordion.Header>
+                  <Accordion.Content className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+                    <p className="pb-6 pr-12 text-[15px] leading-[1.65] text-muted-foreground">
+                      {faq.a}
+                    </p>
+                  </Accordion.Content>
+                </Accordion.Item>
+              ))}
+            </Accordion.Root>
+          </div>
+        </div>
       </div>
     </section>
   )

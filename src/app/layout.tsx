@@ -1,8 +1,32 @@
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
+import { Hanken_Grotesk, JetBrains_Mono, Poppins } from "next/font/google"
 
 import { brand } from "@/lib/branding"
 import "./globals.css"
+
+const hanken = Hanken_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-hanken",
+  display: "swap",
+})
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-jetbrains",
+  display: "swap",
+})
+
+// Only used inside the product mock, so it matches the real app at
+// demo.llmops.rantai.dev rather than the landing's own type.
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-poppins",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://llmops.rantai.dev"),
@@ -47,7 +71,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${hanken.variable} ${jetbrains.variable} ${poppins.variable}`}
+    >
       <body>{children}</body>
     </html>
   )

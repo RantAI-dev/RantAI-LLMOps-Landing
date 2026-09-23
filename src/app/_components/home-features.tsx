@@ -1,46 +1,42 @@
-"use client"
-
 import {
-  Boxes,
-  GitBranch,
-  Gauge,
-  Lock,
-  Server,
-  Workflow,
-} from "lucide-react"
-
-import { Reveal, RevealGroup, RevealItem } from "./reveal"
+  VisualDataStaysPut,
+  VisualEngines,
+  VisualEvaluate,
+  VisualManyBehaviours,
+  VisualPipeline,
+  VisualReproducible,
+} from "./feature-visuals"
 
 const FEATURES = [
   {
-    icon: Lock,
     title: "Your data stays put",
     body: "Training data, model weights, and inference traffic never leave your servers. For universities, government, and regulated industries, that is not a feature — it is the requirement that rules out every hosted API.",
+    basis: "flex-[1.6_1_520px]",
+    Visual: VisualDataStaysPut,
   },
   {
-    icon: Workflow,
-    title: "Dataset to endpoint, one place",
-    body: "Import a model and a dataset, fine-tune, evaluate, export, and serve — without switching tools or writing glue scripts between five of them.",
-  },
-  {
-    icon: Boxes,
     title: "Many behaviours, one GPU",
     body: "LoRA adapters attach to a single frozen base model, so several fine-tuned behaviours can share one card instead of each needing its own deployment.",
+    basis: "flex-[1_1_340px]",
+    Visual: VisualManyBehaviours,
   },
   {
-    icon: Gauge,
     title: "Evaluate before you ship",
     body: "Run a trained adapter against a held-out set and compare it with the base model, side by side. Promote a version because the numbers moved, not because the loss curve looked pleasant.",
+    basis: "flex-[1_1_340px]",
+    Visual: VisualEvaluate,
   },
   {
-    icon: Server,
     title: "Bring your own engine",
     body: "Export to vLLM, Ollama, or llama.cpp and serve over an OpenAI-compatible API. Existing clients point at a new base URL and keep working.",
+    basis: "flex-[1_1_340px]",
+    Visual: VisualEngines,
   },
   {
-    icon: GitBranch,
     title: "Every run is reproducible",
     body: "Hyperparameters, dataset version, and base model are recorded per job. Compare runs, trace a regression back to what changed, and rerun it.",
+    basis: "flex-[1_1_340px]",
+    Visual: VisualReproducible,
   },
 ] as const
 
@@ -48,42 +44,57 @@ export function HomeFeatures() {
   return (
     <section
       id="platform"
-      className="relative mx-auto w-full max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8 sm:py-28"
+      className="mx-auto w-full max-w-[1200px] scroll-mt-20 px-5 py-[120px] sm:px-8 sm:py-[140px]"
       aria-labelledby="platform-heading"
     >
-      <Reveal className="mx-auto max-w-2xl text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-          Platform
-        </p>
-        <h2
-          id="platform-heading"
-          className="mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl"
-        >
-          Everything between a raw model and a working endpoint
-        </h2>
-        <p className="mt-4 text-balance text-base leading-relaxed text-muted-foreground">
+      <div className="flex flex-wrap items-end justify-between gap-8">
+        <div className="max-w-[620px]">
+          <p className="font-mono text-[12px] text-primary">Platform</p>
+          <h2
+            id="platform-heading"
+            className="mt-3 text-balance text-[clamp(32px,4vw,48px)] font-semibold leading-[1.05] tracking-[-0.03em]"
+          >
+            Everything between a raw model and a working endpoint
+          </h2>
+        </div>
+        <p className="max-w-[400px] text-[16px] leading-[1.6] text-muted-foreground">
           Most teams stitch this together from notebooks, shell scripts, and a serving
           container nobody wants to touch. This replaces that seam.
         </p>
-      </Reveal>
+      </div>
 
-      <RevealGroup className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {FEATURES.map((feature) => (
-          <RevealItem key={feature.title}>
-            <article className="h-full rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/30">
-              <span className="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
-                <feature.icon className="size-5" />
-              </span>
-              <h3 className="mt-5 text-base font-semibold tracking-tight">
-                {feature.title}
-              </h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
-                {feature.body}
-              </p>
-            </article>
-          </RevealItem>
+      <div className="mt-14 flex flex-wrap gap-4">
+        {FEATURES.map(({ title, body, basis, Visual }) => (
+          <article
+            key={title}
+            className={`min-w-0 rounded-xl border border-border p-3 ${basis}`}
+          >
+            <Visual />
+            <div className="px-3 pb-3 pt-5">
+              <h3 className="text-[18px] font-semibold tracking-[-0.01em]">{title}</h3>
+              <p className="mt-2 text-[14.5px] leading-[1.6] text-muted-foreground">{body}</p>
+            </div>
+          </article>
         ))}
-      </RevealGroup>
+
+        {/* Full-width closer: text beside the pipeline rather than above it. */}
+        <article className="min-w-0 flex-[1_1_100%] rounded-xl border border-border p-3">
+          <div className="flex flex-wrap gap-4">
+            <div className="min-w-0 shrink grow basis-[300px] px-3 py-5">
+              <h3 className="text-[18px] font-semibold tracking-[-0.01em]">
+                Dataset to endpoint, one place
+              </h3>
+              <p className="mt-2 text-[14.5px] leading-[1.6] text-muted-foreground">
+                Import a model and a dataset, fine-tune, evaluate, export, and serve — without
+                switching tools or writing glue scripts between five of them.
+              </p>
+            </div>
+            <div className="min-w-0 shrink grow-[2] basis-[520px]">
+              <VisualPipeline />
+            </div>
+          </div>
+        </article>
+      </div>
     </section>
   )
 }

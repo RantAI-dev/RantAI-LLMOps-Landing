@@ -1,35 +1,20 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { AnimatePresence, motion, useReducedMotion, type Variants } from "motion/react"
-import { ArrowRight, ShieldCheck } from "lucide-react"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 
 import { Button } from "@/components/ui/button"
 import { brand } from "@/lib/branding"
+import { HeroRunMock } from "./hero-run-mock"
 
 const ROTATING_WORDS = ["Fine-tune", "Evaluate", "Serve"] as const
 const ROTATE_INTERVAL_MS = 2800
 
 const STATS = [
-  { value: "Your GPU", label: "Runs where you host it" },
-  { value: "Any open model", label: "Hugging Face or your registry" },
-  { value: "OpenAI-compatible", label: "Serves over a standard API" },
+  { label: "Runs where you host it", value: "Your GPU" },
+  { label: "Hugging Face or your registry", value: "Any open model" },
+  { label: "Serves over a standard API", value: "OpenAI-compatible" },
 ] as const
-
-const heroContainer: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-}
-
-const heroItem: Variants = {
-  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
-  show: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] },
-  },
-}
 
 export function HomeHero() {
   const [wordIndex, setWordIndex] = useState(0)
@@ -43,98 +28,85 @@ export function HomeHero() {
     return () => clearInterval(id)
   }, [reduce])
 
-  const word = ROTATING_WORDS[wordIndex]
+  const word = ROTATING_WORDS[reduce ? 0 : wordIndex]
 
   return (
-    <section className="relative overflow-hidden" aria-labelledby="hero-heading">
-      {/* Soft brand dome behind the headline — the Agents/Claw signature opener */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-[720px]"
-        aria-hidden
+    <section
+      className="mx-auto w-full max-w-[1200px] px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24"
+      aria-labelledby="hero-heading"
+    >
+      <p className="flex items-center gap-2 font-mono text-[12px] text-muted-foreground">
+        <span className="size-[7px] shrink-0 rounded-full bg-success" aria-hidden />
+        Self-hosted · your data never leaves your infrastructure
+      </p>
+
+      <h1
+        id="hero-heading"
+        className="mt-[22px] max-w-[1000px] text-balance text-[clamp(40px,6.4vw,76px)] font-semibold leading-[1.0] tracking-[-0.04em]"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(120%_70%_at_50%_-10%,#A9D9FF_0%,#D7ECFF_28%,#FFFFFF_62%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-transparent to-background" />
-        <div className="absolute left-1/2 top-[-28rem] size-[52rem] -translate-x-1/2 rounded-full bg-white/70 blur-3xl" />
-      </div>
+        <span className="inline-flex min-w-[5.2ch] justify-start align-baseline">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={word}
+              initial={reduce ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduce ? undefined : { opacity: 0, y: -12 }}
+              transition={{ duration: 0.32, ease: "easeOut" }}
+              className="text-primary"
+            >
+              {word}
+            </motion.span>
+          </AnimatePresence>
+        </span>{" "}
+        your own language models — without sending data anywhere
+      </h1>
 
-      <motion.div
-        variants={heroContainer}
-        initial="hidden"
-        animate="show"
-        className="relative mx-auto w-full max-w-6xl px-5 pb-20 pt-32 sm:px-8 sm:pb-28 sm:pt-40"
-      >
-        <motion.div variants={heroItem} className="flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/70 px-3.5 py-1.5 text-xs font-medium text-primary backdrop-blur">
-            <ShieldCheck className="size-3.5" />
-            Self-hosted · your data never leaves your infrastructure
-          </span>
-        </motion.div>
-
-        <motion.h1
-          variants={heroItem}
-          id="hero-heading"
-          className="mx-auto mt-7 max-w-4xl text-balance text-center text-4xl font-semibold leading-[1.08] tracking-tight sm:text-6xl"
-        >
-          <span className="relative inline-flex min-w-[4.5ch] justify-center sm:min-w-[6ch]">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={word}
-                initial={{ opacity: 0, y: 14, filter: "blur(5px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -14, filter: "blur(5px)" }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="text-primary"
-              >
-                {word}
-              </motion.span>
-            </AnimatePresence>
-          </span>{" "}
-          your own language models — without sending data anywhere
-        </motion.h1>
-
-        <motion.p
-          variants={heroItem}
-          className="mx-auto mt-6 max-w-2xl text-balance text-center text-base leading-relaxed text-muted-foreground sm:text-lg"
-        >
+      <div className="mt-9 flex flex-wrap items-end justify-between gap-6">
+        <p className="max-w-[560px] text-[18px] leading-[1.6] text-muted-foreground">
           {brand.productName} takes a model from dataset to live endpoint on hardware you
           control. Fine-tune through the UI, evaluate against your own test set, then serve
           it over an OpenAI-compatible API.
-        </motion.p>
-
-        <motion.div
-          variants={heroItem}
-          className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
-        >
-          <Button size="lg" asChild>
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Button
+            className="h-auto rounded-lg px-5 py-[13px] text-[15px] font-semibold"
+            asChild
+          >
             <a href={brand.demoUrl} target="_blank" rel="noreferrer">
-              View demo
-              <ArrowRight className="size-4" />
+              View demo <span aria-hidden>→</span>
             </a>
           </Button>
-          <Button size="lg" variant="outline" asChild>
+          <Button
+            variant="outline"
+            className="h-auto rounded-lg px-5 py-[13px] text-[15px] font-medium"
+            asChild
+          >
             <a href="#contact">Contact sales</a>
           </Button>
-        </motion.div>
+        </div>
+      </div>
 
-        <motion.dl
-          variants={heroItem}
-          className="mx-auto mt-16 grid max-w-2xl grid-cols-3 gap-4 border-t border-border/70 pt-8"
-        >
-          {STATS.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <dt className="sr-only">{stat.label}</dt>
-              <dd>
-                <span className="block text-2xl font-semibold tracking-tight sm:text-3xl">
-                  {stat.value}
-                </span>
-                <span className="mt-1 block text-xs text-muted-foreground sm:text-sm">
-                  {stat.label}
-                </span>
-              </dd>
-            </div>
-          ))}
-        </motion.dl>
-      </motion.div>
+      <dl className="mt-14 grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] border-t border-border">
+        {STATS.map((stat, i) => (
+          <div
+            key={stat.value}
+            className={
+              i < STATS.length - 1
+                ? "border-border py-5 pr-6 sm:border-r sm:pl-6 sm:first:pl-0"
+                : "py-5 sm:pl-6"
+            }
+          >
+            <dt className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+              {stat.label}
+            </dt>
+            <dd className="mt-1.5 text-[17px] font-semibold tracking-tight">{stat.value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="mt-2">
+        <HeroRunMock />
+      </div>
     </section>
   )
 }

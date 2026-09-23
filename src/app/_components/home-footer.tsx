@@ -21,7 +21,7 @@ const COMPANY_LINKS = [
 export function HomeFooter() {
   return (
     <footer className="border-t border-border bg-background">
-      <div className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8">
+      <div className="mx-auto w-full max-w-[1200px] px-5 py-14 sm:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <Link
@@ -46,7 +46,7 @@ export function HomeFooter() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-foreground">
+            <h3 className="font-mono text-[11px] uppercase tracking-[0.08em] text-foreground">
               Product
             </h3>
             <ul className="mt-4 space-y-2.5">
@@ -63,7 +63,7 @@ export function HomeFooter() {
               <li>
                 <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
                   Docs
-                  <Badge variant="soft" className="px-1.5 py-0 text-[10px]">
+                  <Badge variant="soft" className="px-1.5 py-0 font-mono text-[10px]">
                     Soon
                   </Badge>
                 </span>
@@ -72,7 +72,7 @@ export function HomeFooter() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-foreground">
+            <h3 className="font-mono text-[11px] uppercase tracking-[0.08em] text-foreground">
               Company
             </h3>
             <ul className="mt-4 space-y-2.5">
@@ -104,7 +104,7 @@ export function HomeFooter() {
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} {brand.companyName}. All rights reserved.
           </p>
-          <p className="text-xs text-muted-foreground">
+          <p className="font-mono text-xs text-muted-foreground">
             Self-hosted LLM fine-tuning and serving
           </p>
         </div>
