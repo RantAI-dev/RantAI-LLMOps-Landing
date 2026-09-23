@@ -25,7 +25,7 @@ const FEATURES = [
   {
     icon: Boxes,
     title: "Many behaviours, one GPU",
-    body: "LoRA adapters attach to a single frozen base model. Serve a support persona, a tutor, and a classifier side by side on the same card instead of paying for three deployments.",
+    body: "LoRA adapters attach to a single frozen base model, so several fine-tuned behaviours can share one card instead of each needing its own deployment.",
   },
   {
     icon: Gauge,

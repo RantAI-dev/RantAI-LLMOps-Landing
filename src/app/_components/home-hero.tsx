@@ -11,9 +11,9 @@ const ROTATING_WORDS = ["Fine-tune", "Evaluate", "Serve"] as const
 const ROTATE_INTERVAL_MS = 2800
 
 const STATS = [
-  { value: "4B", label: "Params fine-tuned" },
-  { value: "3", label: "Adapters, one GPU" },
-  { value: "100%", label: "On your hardware" },
+  { value: "Your GPU", label: "Runs where you host it" },
+  { value: "Any open model", label: "Hugging Face or your registry" },
+  { value: "OpenAI-compatible", label: "Serves over a standard API" },
 ] as const
 
 const heroContainer: Variants = {
@@ -107,7 +107,7 @@ export function HomeHero() {
         >
           <Button size="lg" asChild>
             <a href={brand.demoUrl} target="_blank" rel="noreferrer">
-              Request a demo
+              View demo
               <ArrowRight className="size-4" />
             </a>
           </Button>

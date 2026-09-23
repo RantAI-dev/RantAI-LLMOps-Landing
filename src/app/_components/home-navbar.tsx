@@ -80,7 +80,7 @@ export function HomeNavbar() {
           </Button>
           <Button size="sm" asChild>
             <a href={brand.demoUrl} target="_blank" rel="noreferrer">
-              Request a demo
+              View demo
             </a>
           </Button>
         </div>
@@ -118,7 +118,7 @@ export function HomeNavbar() {
             </Button>
             <Button asChild>
               <a href={brand.demoUrl} target="_blank" rel="noreferrer">
-                Request a demo
+                View demo
               </a>
             </Button>
           </div>

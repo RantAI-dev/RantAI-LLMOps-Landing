@@ -25,17 +25,17 @@ export function HomeCta() {
               id="cta-heading"
               className="mx-auto max-w-2xl text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl"
             >
-              See it running on your own models
+              Take a look before you commit
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-balance text-base leading-relaxed text-white/70">
-              We will walk through fine-tuning a model on your data and serving it from your
-              infrastructure — then you decide whether it fits.
+              Explore the platform with sample data to see how a run is configured, evaluated,
+              and served. When you are ready to try it on your own models, talk to us.
             </p>
 
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button size="lg" variant="secondary" asChild>
                 <a href={brand.demoUrl} target="_blank" rel="noreferrer">
-                  Request a demo
+                  View demo
                   <ArrowRight className="size-4" />
                 </a>
               </Button>
